@@ -59,6 +59,17 @@ table {
   background-color: #6D7CE5;
   color: white;
 }
+h1 {
+  font-size: 28px;
+  font-weight: bold;
+}
+button {
+  font-weight: bold;
+  color: white;
+  background-color: #8C97EA;
+  border: none;
+  border-radius: 10px;
+}
 `;
 
 export default GlobalStyles;

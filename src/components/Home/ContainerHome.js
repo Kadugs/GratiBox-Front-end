@@ -9,9 +9,7 @@ const ContainerHome = styled.div`
     height: 100%;
   }
 `;
-const Title = styled.span`
-  font-size: 28px;
-  font-weight: bold;
+const Title = styled.h1`
   padding: 55px 0 45px 0;
 `;
 const Text = styled.span`
@@ -26,7 +24,7 @@ const Img = styled.img`
   height: auto;
 `;
 const Bottom = styled.div`
-  background-color: #4D65A8;
+  background-color: #4d65a8;
   width: 100vw;
   height: 23vh;
   display: flex;
@@ -37,11 +35,6 @@ const Button = styled.button`
   width: 200px;
   height: 45px;
   font-size: 18px;
-  font-weight: bold;
-  color: white;
-  background-color: #8C97EA;
-  border: none;
-  border-radius: 10px;
   margin-top: 20px;
 `;
 const Login = styled.span`
