@@ -7,6 +7,7 @@ import {
   Img,
   Button,
   Login,
+  Bottom,
 } from "./ContainerHome";
 
 export default function Home() {
@@ -18,8 +19,10 @@ export default function Home() {
         mais...
       </Text>
       <Img src={image} />
-      <Button></Button>
-      <Login></Login>
+      <Bottom>
+        <Button>Quero participar</Button>
+        <Login>Já sou grato</Login>
+      </Bottom>
     </ContainerHome>
   );
 }
