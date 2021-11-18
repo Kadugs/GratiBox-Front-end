@@ -1,5 +1,4 @@
 import image from "../../assets/image05.webp";
-
 import {
   ContainerHome,
   Title,
@@ -9,6 +8,7 @@ import {
   Login,
   Bottom,
 } from "./ContainerHome";
+import { Link } from "react-router-dom";
 
 export default function Home() {
   return (
@@ -20,8 +20,12 @@ export default function Home() {
       </Text>
       <Img src={image} />
       <Bottom>
-        <Button>Quero participar</Button>
-        <Login>Já sou grato</Login>
+        <Link to="/sign-up">
+          <Button>Quero participar</Button>
+        </Link>
+        <Link to="/sign-in">
+          <Login>Já sou grato</Login>
+        </Link>
       </Bottom>
     </ContainerHome>
   );

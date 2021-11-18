@@ -4,6 +4,10 @@ const ContainerHome = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  a {
+    text-decoration: none;
+    height: 100%;
+  }
 `;
 const Title = styled.span`
   font-size: 28px;
@@ -41,8 +45,10 @@ const Button = styled.button`
   margin-top: 20px;
 `;
 const Login = styled.span`
+  text-decoration: none;
   font-weight: bold;
   padding: 20px 0;
+  color: white;
 `;
 
 export { ContainerHome, Title, Text, Img, Button, Login, Bottom };
