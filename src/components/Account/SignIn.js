@@ -33,6 +33,7 @@ export default function SignIn() {
     signIn(body)
       .then((res) => {
         localStorage.setItem('user', JSON.stringify(res.data));
+        navigate('/plans');
       })
       .catch((err) => {
         if (err.response.data === 400) {
