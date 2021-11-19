@@ -1,6 +1,6 @@
-import axios from "axios";
+import axios from 'axios';
 
-const BASE_URL = "http://localhost:4000";
+const BASE_URL = 'http://localhost:4000';
 
 function createConfig(token) {
   return {
@@ -13,4 +13,7 @@ function createConfig(token) {
 function signUp(body) {
   return axios.post(`${BASE_URL}/sign-up`, body);
 }
-export { signUp };
+function signIn(body) {
+  return axios.post(`${BASE_URL}/sign-in`, body);
+}
+export { signUp, signIn };
