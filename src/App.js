@@ -4,6 +4,7 @@ import Home from './components/Home/Home';
 import SignUp from './components/Account/SignUp';
 import SignIn from './components/Account/SignIn';
 import Plans from './components/Plans/Plans';
+
 export default function App() {
   return (
     <BrowserRouter>

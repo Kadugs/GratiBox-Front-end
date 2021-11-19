@@ -4,9 +4,17 @@ const ContainerPlans = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  word-break: break-all;
+  padding: 0 max(20px) 0 max(20px);
   a {
     text-decoration: none;
     margin-top: 20px;
+  }
+  .logout {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
   }
 `;
 const Title = styled.h1`
@@ -40,10 +48,33 @@ const SignDiv = styled.div`
     line-height: 21px;
   }
 `;
+const PlanInfosDiv = styled.div`
+  background-color: white;
+  border-radius: 10px;
+  height: 390px;
+`;
 const Button = styled.button`
   width: 168px;
   height: 40px;
   font-size: 24px;
   margin-top: 20px;
 `;
-export { ContainerPlans, Title, Text, Img, SignDiv, Button };
+const SpanOption = styled.span`
+  color: #4d65a8;
+  font-weight: bold;
+`;
+const SpanRes = styled.span`
+  color: #e63c80;
+  font-weight: bold;
+`;
+export {
+  ContainerPlans,
+  Title,
+  Text,
+  Img,
+  SignDiv,
+  Button,
+  PlanInfosDiv,
+  SpanOption,
+  SpanRes
+};
