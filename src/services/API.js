@@ -5,8 +5,8 @@ const BASE_URL = 'http://localhost:4000';
 function createConfig(token) {
   return {
     headers: {
-      Authorization: `Bearer ${token}`,
-    },
+      Authorization: `Bearer ${token}`
+    }
   };
 }
 
@@ -16,4 +16,8 @@ function signUp(body) {
 function signIn(body) {
   return axios.post(`${BASE_URL}/sign-in`, body);
 }
-export { signUp, signIn };
+function getPlan(token) {
+  const config = createConfig(token);
+  return axios.get(`${BASE_URL}/plans`, config);
+}
+export { signUp, signIn, getPlan };
