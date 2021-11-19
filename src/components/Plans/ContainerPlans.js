@@ -4,7 +4,6 @@ const ContainerPlans = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  word-break: break-all;
   padding: 0 max(20px) 0 max(20px);
   a {
     text-decoration: none;
@@ -19,6 +18,7 @@ const ContainerPlans = styled.div`
 `;
 const Title = styled.h1`
   padding: 100px 0 40px 0;
+  word-break: break-all;
 `;
 const Text = styled.span`
   padding: 20px 30px;
@@ -52,10 +52,17 @@ const PlanInfosDiv = styled.div`
   background-color: white;
   border-radius: 10px;
   height: 390px;
+  position: relative;
+  & > ul {
+    padding-left: 20px;
+  }
+  & li {
+    margin-top: 4px;
+  }
 `;
 const Button = styled.button`
-  width: 168px;
-  height: 40px;
+  width: ${(props) => (props?.rateButton ? '237px' : '168px')};
+  height: ${(props) => (props?.rateButton ? '56px' : '40px')};
   font-size: 24px;
   margin-top: 20px;
 `;
@@ -67,6 +74,15 @@ const SpanRes = styled.span`
   color: #e63c80;
   font-weight: bold;
 `;
+const PlanItems = styled.div`
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  color: #e63c80;
+  bottom: 8px;
+  width: 100%;
+`;
 export {
   ContainerPlans,
   Title,
@@ -76,5 +92,6 @@ export {
   Button,
   PlanInfosDiv,
   SpanOption,
-  SpanRes
+  SpanRes,
+  PlanItems
 };

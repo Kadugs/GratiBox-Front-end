@@ -1,25 +1,17 @@
-import {
-  ContainerPlans,
-  Title,
-  Img,
-  Text,
-  SignDiv,
-  PlanInfosDiv,
-  Button,
-  SpanOption,
-  SpanRes
-} from './ContainerPlans';
+import { ContainerPlans, Title } from './ContainerPlans';
 import dayjs from 'dayjs';
 import { IoLogOutOutline } from 'react-icons/io5';
 import { getPlan } from '../../services/API';
 import { useState, useEffect } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
-import noPlanImage from '../../assets/image04.jpg';
-import planImage from '../../assets/image03.jpg';
+import SignContainer from './SignContainer';
+import PlanInfosContainer from './PlanInfosContainer';
+
 export default function Plans() {
   const [isLoading, setisLoading] = useState(true);
   const [plan, setPlan] = useState(null);
+  const [nextDate, setNextDate] = useState('');
   const user = JSON.parse(localStorage.getItem('user'));
   const navigate = useNavigate();
   const userInfo = JSON.parse(localStorage.getItem('user'));
@@ -30,9 +22,13 @@ export default function Plans() {
   useEffect(() => {
     getPlan(userInfo?.token)
       .then((response) => {
-        console.log(response.data);
-        if (response.data?.planType !== null) {
+        if (response.data[0]?.planType !== null) {
           setPlan(response.data);
+          const dates = nextDeliveries({
+            day: response.data[0].day,
+            planType: response.data[0].planType
+          });
+          setNextDate();
         }
         setisLoading(false);
       })
@@ -47,48 +43,29 @@ export default function Plans() {
         });
       });
   }, []);
-  function SignContainer() {
-    return (
-      <>
-        <Text>Você ainda não assinou um plano, que tal começar agora?</Text>
-        <SignDiv>
-          <Img src={noPlanImage} alt="img" />
-          <span>
-            Você recebe um box por semana. Ideal para quem quer exercer a
-            gratidão todos os dias.
-          </span>
-          <Link to="/sign-plan">
-            <Button>Assinar</Button>
-          </Link>
-        </SignDiv>
-      </>
-    );
-  }
-  function PlanInfosContainer() {
-    return (
-      <>
-        <Text>Agradecer é arte de atrair coisas boas</Text>
-        <PlanInfosDiv>
-          <Img src={planImage} />
-          <ul>
-            <li>
-              <SpanOption>Plano: </SpanOption>
-              <SpanRes>{plan[0]?.planType}</SpanRes>
-            </li>
-            <li>
-              {' '}
-              <SpanOption>Data de assinatura: </SpanOption>
-              <SpanRes>{dayjs(plan[0]?.date).format('DD/MM/YY')}</SpanRes>
-            </li>
-            <li>
-              {' '}
-              <SpanOption>Próximas entregas: </SpanOption>
-              <SpanRes>{plan[0]?.planType}</SpanRes>
-            </li>
-          </ul>
-        </PlanInfosDiv>
-      </>
-    );
+  function nextDeliveries({ day, planType }) {
+    let next = '';
+    if (planType === 'mensal') {
+      if (dayjs().get('date') > Number(day)) {
+        next = dayjs(`${day}/11/21`).add(1, 'month').format('DD/MM/YYYY');
+      } else {
+        next = dayjs(`${day}/11/21`);
+      }
+      if (dayjs(next).get('day') === 0) {
+        next = dayjs(next).add(1, 'day');
+      } else if (dayjs(next).get('day') === 6) {
+        next = dayjs(next).add(2, 'day');
+      }
+      return (
+        <ul>
+          <li>
+            <span>{next}</span>
+          </li>
+        </ul>
+      );
+    } else {
+      return '';
+    }
   }
   if (isLoading) {
     return <></>;
@@ -97,7 +74,11 @@ export default function Plans() {
     <ContainerPlans>
       <IoLogOutOutline className="logout" onClick={logout} />
       <Title>Bom te ver por aqui, {user?.name}</Title>
-      {!plan ? <SignContainer /> : <PlanInfosContainer />}
+      {!plan ? (
+        <SignContainer />
+      ) : (
+        <PlanInfosContainer plan={plan} nextDate={nextDate} />
+      )}
     </ContainerPlans>
   );
 }
