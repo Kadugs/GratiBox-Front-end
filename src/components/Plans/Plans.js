@@ -5,7 +5,7 @@ import { getPlan } from '../../services/API';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
-import SignContainer from './SignContainer';
+import NoPlanScreen from './NoPlanScreen';
 import PlanInfosContainer from './PlanInfosContainer';
 
 export default function Plans() {
@@ -75,7 +75,7 @@ export default function Plans() {
       <IoLogOutOutline className="logout" onClick={logout} />
       <Title>Bom te ver por aqui, {user?.name}</Title>
       {!plan ? (
-        <SignContainer />
+        <NoPlanScreen />
       ) : (
         <PlanInfosContainer plan={plan} nextDate={nextDate} />
       )}

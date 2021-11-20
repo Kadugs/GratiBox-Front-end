@@ -34,7 +34,7 @@ const Img = styled.img`
 const SignDiv = styled.div`
   margin-top: 30px;
   border-radius: 25px;
-  height: 420px;
+  min-height: 420px;
   width: 95vw;
   background-color: #e5cdb3;
   display: flex;
@@ -51,13 +51,17 @@ const SignDiv = styled.div`
 const PlanInfosDiv = styled.div`
   background-color: white;
   border-radius: 10px;
-  height: 390px;
+  min-height: 390px;
+  width: 95vw;
   position: relative;
   & > ul {
     padding-left: 20px;
   }
   & li {
     margin-top: 4px;
+  }
+  select {
+    width: 100px;
   }
 `;
 const Button = styled.button`
@@ -83,6 +87,55 @@ const PlanItems = styled.div`
   bottom: 8px;
   width: 100%;
 `;
+const inputStyled = `
+font-size: 18px;
+  width: 80%;
+  border: none;
+  margin-bottom: 7px;
+  border-radius: 5px;
+  padding: 0 10px;
+  color: #4d65a8;
+  background-color: #e0d1ed9e;
+`;
+const Input = styled.input`
+  ${inputStyled};
+`;
+const Form = styled.div`
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  select {
+    ${inputStyled};
+    font-weight: bold;
+    height: 44px;
+  }
+`;
+
+const CheckboxDiv = styled.div`
+  ${inputStyled};
+  height: 120px;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  span {
+    font-weight: bold;
+  }
+  label:nth-child(1) {
+    margin-right: 50px;
+  }
+  .checkbox {
+    height: 15px;
+    width: 15px;
+    background-color: #eee;
+  }
+`;
+const Error = styled.span`
+  color: red;
+  font-weight: bold;
+  margin-top: 15px;
+  font-size: 18px;
+`;
 export {
   ContainerPlans,
   Title,
@@ -93,5 +146,9 @@ export {
   PlanInfosDiv,
   SpanOption,
   SpanRes,
-  PlanItems
+  PlanItems,
+  Form,
+  CheckboxDiv,
+  Error,
+  Input
 };

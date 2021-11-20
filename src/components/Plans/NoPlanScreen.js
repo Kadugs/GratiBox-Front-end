@@ -2,7 +2,7 @@ import { Text, SignDiv, Img, Button } from './ContainerPlans';
 import { Link } from 'react-router-dom';
 import noPlanImage from '../../assets/image04.jpg';
 
-export default function SignContainer() {
+export default function NoPlanScreen() {
   return (
     <>
       <Text>Você ainda não assinou um plano, que tal começar agora?</Text>
