@@ -99,6 +99,12 @@ font-size: 18px;
 `;
 const Input = styled.input`
   ${inputStyled};
+  height: 44px;
+  width: ${(props) => (!!props.width ? props.width : '80%')};
+  &::placeholder {
+    color: #4d65a8;
+    font-weight: bold;
+  }
 `;
 const Form = styled.div`
   margin-top: 20px;
@@ -109,6 +115,12 @@ const Form = styled.div`
     ${inputStyled};
     font-weight: bold;
     height: 44px;
+    width: ${(props) => (!!props.selectWidth ? props.selectWidth : '80%')};
+  }
+  .form-city {
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
   }
 `;
 
