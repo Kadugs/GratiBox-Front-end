@@ -8,7 +8,7 @@ import {
   Input,
   Button,
   ChangePage,
-  Error,
+  Error
 } from './ContainerAccount';
 
 export default function SignUp() {
@@ -21,11 +21,12 @@ export default function SignUp() {
 
   function handleSubmit(event) {
     event.preventDefault();
+    localStorage.removeItem('user');
     const body = {
       name,
       email,
       password,
-      confirmPassword,
+      confirmPassword
     };
     if (password !== confirmPassword) {
       setErrorMessage('Senhas diferentes');

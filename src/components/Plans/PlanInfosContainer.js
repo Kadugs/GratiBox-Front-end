@@ -35,9 +35,16 @@ export default function PlanInfosContainer({ plan, nextDate }) {
           </li>
         </ul>
         <PlanItems>
-          {plan?.map((item) => (
-            <span>{item.productName}</span>
-          ))}
+          {plan?.map((item) => {
+            let product = '';
+            item.productName === 'tea'
+              ? (product = 'Chá')
+              : item.productName === 'incense'
+              ? (product = 'Incensos')
+              : (product = 'Produtos Orgânicos');
+
+            return <span>{product}</span>;
+          })}
         </PlanItems>
       </PlanInfosDiv>
       <Button rateButton={true}>Avaliar entregas</Button>

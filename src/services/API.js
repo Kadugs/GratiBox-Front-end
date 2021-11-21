@@ -20,4 +20,8 @@ function getPlan(token) {
   const config = createConfig(token);
   return axios.get(`${BASE_URL}/plans`, config);
 }
-export { signUp, signIn, getPlan };
+function createPlan(body, token) {
+  const config = createConfig(token);
+  return axios.post(`${BASE_URL}/plans`, body, config);
+}
+export { signUp, signIn, getPlan, createPlan };

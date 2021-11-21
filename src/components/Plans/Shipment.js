@@ -13,6 +13,9 @@ import planImage from '../../assets/image03.jpg';
 import { useState, useContext } from 'react';
 import SignPlanContext from '../../contexts/SignPlanContext';
 import SelectStates from './SelectStates';
+import { createPlan } from '../../services/API';
+import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 export default function Shipment() {
   const userInfo = JSON.parse(localStorage.getItem('user'));
@@ -22,9 +25,52 @@ export default function Shipment() {
   const [cep, setCep] = useState('');
   const [city, setCity] = useState('');
   const [state, setState] = useState('');
-  const { plan, setPlan } = useContext(SignPlanContext);
+  const { plan } = useContext(SignPlanContext);
+  const navigate = useNavigate();
 
-  function sendPlan() {}
+  function sendPlan() {
+    if (!name || !address || !cep || !city || !state) {
+      setErrorMessage('Preencha todos os campos');
+      return;
+    }
+    if (cep.length !== 8 || Number(cep) != cep) {
+      setErrorMessage('CEP inválido (digite somente números)');
+      return;
+    }
+    setErrorMessage('');
+    const shipmentBody = {
+      name,
+      address,
+      cep,
+      city,
+      state
+    };
+    const body = {
+      ...plan,
+      shipment: shipmentBody
+    };
+    createPlan(body, userInfo.token)
+      .then(() => {
+        Swal.fire({
+          title: 'Parabéns!',
+          text: 'Agora você faz parte do nosso círculo de gratidão!',
+          confirmButtonText: 'Ótimo!'
+        }).then(() => {
+          navigate('/plans');
+        });
+      })
+      .catch(() => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Desculpe...',
+          text: 'Algo deu errado ao criar o seu plano, tente novamente mais tarde :)',
+          confirmButtonText: 'Ótimo!'
+        }).then(() => {
+          localStorage.removeItem('user');
+          navigate('/');
+        });
+      });
+  }
 
   return (
     <ContainerPlans>
@@ -44,7 +90,7 @@ export default function Shipment() {
             onChange={(e) => setAddress(e.target.value)}
           />
           <Input
-            placeholder="Nome completo"
+            placeholder="CEP"
             value={cep}
             onChange={(e) => setCep(e.target.value)}
           />
