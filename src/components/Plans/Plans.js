@@ -39,6 +39,7 @@ export default function Plans() {
           text: 'Houve um erro ao carregar a página',
           confirmButtonText: 'Retornar'
         }).then(() => {
+          localStorage.removeItem('user');
           navigate('/');
         });
       });

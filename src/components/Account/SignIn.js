@@ -8,7 +8,7 @@ import {
   Input,
   Button,
   ChangePage,
-  Error,
+  Error
 } from './ContainerAccount';
 
 export default function SignIn() {
@@ -26,9 +26,17 @@ export default function SignIn() {
 
   function handleSubmit(event) {
     event.preventDefault();
+    if (!email) {
+      setErrorMessage('Por favor, insira seu email');
+      return;
+    }
+    if (!password) {
+      setErrorMessage('Por favor, insira sua senha');
+      return;
+    }
     const body = {
       email,
-      password,
+      password
     };
     signIn(body)
       .then((res) => {
@@ -36,9 +44,9 @@ export default function SignIn() {
         navigate('/plans');
       })
       .catch((err) => {
-        if (err.response.data === 400) {
+        if (err.response.status === 400) {
           setErrorMessage('Dados inválidos');
-        } else if (err.response.data === 404 || err.response.data === 401) {
+        } else if (err.response.status === 404 || err.response.status === 401) {
           setErrorMessage('Email ou senha incorretos');
         } else {
           setErrorMessage('Erro no servidor');
