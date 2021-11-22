@@ -22,7 +22,6 @@ export default function SignUp() {
 
   function handleSubmit(event) {
     event.preventDefault();
-    setIsLoading(true);
     localStorage.removeItem('user');
     const body = {
       name,
@@ -34,6 +33,7 @@ export default function SignUp() {
       setErrorMessage('Senhas diferentes');
       return;
     }
+    setIsLoading(true);
     signUp(body)
       .then(() => {
         navigate('/sign-in');
