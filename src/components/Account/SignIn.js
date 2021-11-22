@@ -8,7 +8,7 @@ import {
   Input,
   Button,
   ChangePage,
-  Error,
+  Error
 } from './ContainerAccount';
 
 export default function SignIn() {
@@ -26,9 +26,17 @@ export default function SignIn() {
 
   function handleSubmit(event) {
     event.preventDefault();
+    if (!email) {
+      setErrorMessage('Por favor, insira seu email');
+      return;
+    }
+    if (!password) {
+      setErrorMessage('Por favor, insira sua senha');
+      return;
+    }
     const body = {
       email,
-      password,
+      password
     };
     signIn(body)
       .then((res) => {
@@ -36,9 +44,12 @@ export default function SignIn() {
         navigate('/plans');
       })
       .catch((err) => {
-        if (err.response.data === 400) {
+        if (err.response?.status === 400) {
           setErrorMessage('Dados inválidos');
-        } else if (err.response.data === 404 || err.response.data === 401) {
+        } else if (
+          err.response?.status === 404 ||
+          err.response?.status === 401
+        ) {
           setErrorMessage('Email ou senha incorretos');
         } else {
           setErrorMessage('Erro no servidor');
@@ -53,6 +64,7 @@ export default function SignIn() {
         <Input
           placeholder="Email"
           value={email}
+          className="email"
           onChange={(e) => setEmail(e.target.value)}
         />
         <Input
@@ -61,11 +73,13 @@ export default function SignIn() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <Button screen="login">Login</Button>
+        <Button screen="login" className="button-submit">
+          Login
+        </Button>
       </Form>
-      <Error>{errorMessage}</Error>
+      <Error className="error">{errorMessage}</Error>
       <Link to="/sign-up">
-        <ChangePage>Ain não sou grato</ChangePage>
+        <ChangePage>Ainda não sou grato</ChangePage>
       </Link>
     </ContainerAccount>
   );
