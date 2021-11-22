@@ -77,6 +77,7 @@ const SpanOption = styled.span`
 const SpanRes = styled.span`
   color: #e63c80;
   font-weight: bold;
+  margin-left: ${(props) => (props.marginLeft ? props.marginLeft : 0)};
 `;
 const PlanItems = styled.div`
   position: absolute;

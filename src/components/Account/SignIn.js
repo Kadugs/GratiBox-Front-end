@@ -44,9 +44,12 @@ export default function SignIn() {
         navigate('/plans');
       })
       .catch((err) => {
-        if (err.response.status === 400) {
+        if (err.response?.status === 400) {
           setErrorMessage('Dados inválidos');
-        } else if (err.response.status === 404 || err.response.status === 401) {
+        } else if (
+          err.response?.status === 404 ||
+          err.response?.status === 401
+        ) {
           setErrorMessage('Email ou senha incorretos');
         } else {
           setErrorMessage('Erro no servidor');

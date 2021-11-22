@@ -1,10 +1,9 @@
 import axios from 'axios';
 
 const BASE_URL =
-  process.env.SERVER === 'local'
+  process.env.REACT_APP_SERVER === 'local'
     ? 'http://localhost:4000'
     : 'https://gratibox-cadu.herokuapp.com';
-
 function createConfig(token) {
   return {
     headers: {
@@ -20,6 +19,7 @@ function signIn(body) {
   return axios.post(`${BASE_URL}/sign-in`, body);
 }
 function getPlan(token) {
+  console.log(BASE_URL);
   const config = createConfig(token);
   return axios.get(`${BASE_URL}/plans`, config);
 }

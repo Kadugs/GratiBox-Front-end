@@ -11,7 +11,6 @@ import PlanInfosContainer from './PlanInfosContainer';
 export default function Plans() {
   const [isLoading, setisLoading] = useState(true);
   const [plan, setPlan] = useState(null);
-  const [nextDate, setNextDate] = useState('');
   const user = JSON.parse(localStorage.getItem('user'));
   const navigate = useNavigate();
   const userInfo = JSON.parse(localStorage.getItem('user'));
@@ -22,14 +21,8 @@ export default function Plans() {
   useEffect(() => {
     getPlan(userInfo?.token)
       .then((response) => {
-        if (response.data[0]?.planType !== null) {
-          setPlan(response.data);
-          const dates = nextDeliveries({
-            day: response.data[0].day,
-            planType: response.data[0].planType
-          });
-          setNextDate();
-        }
+        if (response.data[0]?.planType !== null) setPlan(response.data);
+        console.log(response.data[0]);
         setisLoading(false);
       })
       .catch(() => {
@@ -44,30 +37,6 @@ export default function Plans() {
         });
       });
   }, []);
-  function nextDeliveries({ day, planType }) {
-    let next = '';
-    if (planType === 'mensal') {
-      if (dayjs().get('date') > Number(day)) {
-        next = dayjs(`${day}/11/21`).add(1, 'month').format('DD/MM/YYYY');
-      } else {
-        next = dayjs(`${day}/11/21`);
-      }
-      if (dayjs(next).get('day') === 0) {
-        next = dayjs(next).add(1, 'day');
-      } else if (dayjs(next).get('day') === 6) {
-        next = dayjs(next).add(2, 'day');
-      }
-      return (
-        <ul>
-          <li>
-            <span>{next}</span>
-          </li>
-        </ul>
-      );
-    } else {
-      return '';
-    }
-  }
   if (isLoading) {
     return <></>;
   }
@@ -75,11 +44,7 @@ export default function Plans() {
     <ContainerPlans>
       <IoLogOutOutline className="logout" onClick={logout} />
       <Title>Bom te ver por aqui, {user?.name}</Title>
-      {!plan ? (
-        <NoPlanScreen />
-      ) : (
-        <PlanInfosContainer plan={plan} nextDate={nextDate} />
-      )}
+      {!plan ? <NoPlanScreen /> : <PlanInfosContainer plan={plan} />}
     </ContainerPlans>
   );
 }

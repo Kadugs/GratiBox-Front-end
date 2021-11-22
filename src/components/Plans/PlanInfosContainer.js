@@ -10,7 +10,7 @@ import {
 import planImage from '../../assets/image03.jpg';
 import dayjs from 'dayjs';
 
-export default function PlanInfosContainer({ plan, nextDate }) {
+export default function PlanInfosContainer({ plan }) {
   return (
     <>
       <Text>"Agradecer é arte de atrair coisas boas"</Text>
@@ -31,7 +31,11 @@ export default function PlanInfosContainer({ plan, nextDate }) {
             <SpanOption>
               Próximas entregas: <br />
             </SpanOption>
-            <SpanRes>{nextDate}</SpanRes>
+            {plan[0].shipmentDates.map((item) => (
+              <SpanRes marginLeft="40px">
+                {dayjs(item).format('DD/MM/YY')}
+              </SpanRes>
+            ))}
           </li>
         </ul>
         <PlanItems>

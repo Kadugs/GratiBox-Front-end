@@ -19,7 +19,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "local": "SERVER=local npm start",
+    "local": "REACT_APP_SERVER=local npm start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
