@@ -64,6 +64,7 @@ export default function SignIn() {
         <Input
           placeholder="Email"
           value={email}
+          className="email"
           onChange={(e) => setEmail(e.target.value)}
         />
         <Input
@@ -72,11 +73,13 @@ export default function SignIn() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <Button screen="login">Login</Button>
+        <Button screen="login" className="button-submit">
+          Login
+        </Button>
       </Form>
-      <Error>{errorMessage}</Error>
+      <Error className="error">{errorMessage}</Error>
       <Link to="/sign-up">
-        <ChangePage>Ain não sou grato</ChangePage>
+        <ChangePage>Ainda não sou grato</ChangePage>
       </Link>
     </ContainerAccount>
   );
