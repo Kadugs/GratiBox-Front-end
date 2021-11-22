@@ -15,6 +15,13 @@ const ContainerPlans = styled.div`
     right: 10px;
     font-size: 20px;
   }
+  .container-loading {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 `;
 const Title = styled.h1`
   padding: 100px 0 40px 0;
@@ -69,6 +76,12 @@ const Button = styled.button`
   height: ${(props) => (props?.rateButton ? '56px' : '40px')};
   font-size: 24px;
   margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .loading {
+    margin-bottom: 20px;
+  }
 `;
 const SpanOption = styled.span`
   color: #4d65a8;

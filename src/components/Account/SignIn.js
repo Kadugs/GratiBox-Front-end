@@ -10,12 +10,14 @@ import {
   ChangePage,
   Error
 } from './ContainerAccount';
+import { ButtonLoading } from '../../Loadings';
 
 export default function SignIn() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const localData = JSON.parse(localStorage.getItem('user'));
@@ -25,6 +27,8 @@ export default function SignIn() {
   }, []);
 
   function handleSubmit(event) {
+    setIsLoading(true);
+
     event.preventDefault();
     if (!email) {
       setErrorMessage('Por favor, insira seu email');
@@ -40,10 +44,12 @@ export default function SignIn() {
     };
     signIn(body)
       .then((res) => {
+        setIsLoading(false);
         localStorage.setItem('user', JSON.stringify(res.data));
         navigate('/plans');
       })
       .catch((err) => {
+        setIsLoading(false);
         if (err.response?.status === 400) {
           setErrorMessage('Dados inválidos');
         } else if (
@@ -74,7 +80,7 @@ export default function SignIn() {
           onChange={(e) => setPassword(e.target.value)}
         />
         <Button screen="login" className="button-submit">
-          Login
+          {isLoading ? <ButtonLoading /> : 'Login'}
         </Button>
       </Form>
       <Error className="error">{errorMessage}</Error>

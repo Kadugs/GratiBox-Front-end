@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import NoPlanScreen from './NoPlanScreen';
 import PlanInfosContainer from './PlanInfosContainer';
-
+import { ScreenLoading } from '../../Loadings';
 export default function Plans() {
   const [isLoading, setisLoading] = useState(true);
   const [plan, setPlan] = useState(null);
@@ -38,7 +38,13 @@ export default function Plans() {
       });
   }, []);
   if (isLoading) {
-    return <></>;
+    return (
+      <ContainerPlans>
+        <div className="container-loading">
+          <ScreenLoading />
+        </div>
+      </ContainerPlans>
+    );
   }
   return (
     <ContainerPlans>

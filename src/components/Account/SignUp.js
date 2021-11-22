@@ -10,17 +10,19 @@ import {
   ChangePage,
   Error
 } from './ContainerAccount';
-
+import { ButtonLoading } from '../../Loadings';
 export default function SignUp() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   function handleSubmit(event) {
     event.preventDefault();
+    setIsLoading(true);
     localStorage.removeItem('user');
     const body = {
       name,
@@ -35,8 +37,10 @@ export default function SignUp() {
     signUp(body)
       .then(() => {
         navigate('/sign-in');
+        setIsLoading(false);
       })
       .catch((err) => {
+        setIsLoading(false);
         if (err.response.status === 409) {
           setErrorMessage('Email já cadastrado');
         } else {
@@ -72,7 +76,9 @@ export default function SignUp() {
           onChange={(e) => setConfirmPassword(e.target.value)}
         />
         <Error>{errorMessage}</Error>
-        <Button type="submit">Cadastrar</Button>
+        <Button type="submit">
+          {isLoading ? <ButtonLoading /> : 'Cadastrar'}
+        </Button>
       </Form>
       <Link to="/sign-in">
         <ChangePage>Já sou grato</ChangePage>

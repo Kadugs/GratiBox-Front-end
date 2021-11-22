@@ -16,6 +16,7 @@ import SelectStates from './SelectStates';
 import { createPlan } from '../../services/API';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
+import { ButtonLoading } from '../../Loadings';
 
 export default function Shipment() {
   const userInfo = JSON.parse(localStorage.getItem('user'));
@@ -26,6 +27,7 @@ export default function Shipment() {
   const [city, setCity] = useState('');
   const [state, setState] = useState('');
   const { plan } = useContext(SignPlanContext);
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   function sendPlan() {
@@ -38,6 +40,7 @@ export default function Shipment() {
       return;
     }
     setErrorMessage('');
+    setIsLoading(true);
     const shipmentBody = {
       name,
       address,
@@ -51,6 +54,7 @@ export default function Shipment() {
     };
     createPlan(body, userInfo.token)
       .then(() => {
+        setIsLoading(false);
         Swal.fire({
           title: 'Parabéns!',
           text: 'Agora você faz parte do nosso círculo de gratidão!',
@@ -60,6 +64,7 @@ export default function Shipment() {
         });
       })
       .catch(() => {
+        setIsLoading(false);
         Swal.fire({
           icon: 'error',
           title: 'Desculpe...',
@@ -105,7 +110,9 @@ export default function Shipment() {
           </div>
         </Form>
       </PlanInfosDiv>
-      <Button onClick={sendPlan}>Finalizar</Button>
+      <Button onClick={sendPlan}>
+        {isLoading ? <ButtonLoading /> : 'Finalizar'}
+      </Button>
       <Error>{errorMessage}</Error>
     </ContainerPlans>
   );
